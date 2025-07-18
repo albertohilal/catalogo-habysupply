@@ -4,40 +4,64 @@ Plugin personalizado para WordPress que permite mostrar y editar el menú de un 
 
 ## 📦 Características
 
-- Listado de productos categorizados por tipo (bebidas, comidas, etc.)
-- Soporte para precios y descripciones
-- Edición desde frontend protegida por login personalizado
-- Acceso público mediante slug único (ej: `/nocturno-menu/`)
+- Listado de productos categorizados por tipo (bebidas, comidas, etc.).
+- Visualización en dos columnas para facilitar el diseño en Elementor.
+- Soporte para precios y descripciones.
+- Edición desde frontend protegida por login personalizado.
+- Acceso público mediante slug único (ej: `/nocturno-menu/`).
+- Uso de base de datos externa para gestionar productos, categorías y clientes autorizados.
 
-## 🧩 Shortcodes
+## 🧩 Shortcodes disponibles
 
 - `[menu_bar]`  
-  Muestra el menú público del bar según el slug en la URL.
+  Muestra el menú público del bar según el slug en la URL. Ordenado por categoría y presentado en dos columnas.
 
 - `[form_menu_cliente]`  
-  Muestra el formulario para que el cliente (dueño del bar) edite su menú. Requiere autenticación.
+  Muestra el formulario para que el cliente (dueño del bar) edite su menú. Requiere autenticación por token.
 
-## ⚙️ Estructura
+## 🗂️ Estructura del plugin
 
 menu-bares/
 ├── menu-bares.php # Plugin principal
+├── login.html # Formulario de acceso para clientes
+├── form_crud.html # Formulario CRUD para productos
+├── servidor.js # Backend Node.js con Express y MySQL
+├── .env # Variables de entorno (ignorado por Git)
+├── env.example # Ejemplo del archivo .env
 ├── README.md # Este archivo
 
+markdown
+Copiar
+Editar
 
-## 🚀 Uso
+## 🚀 Instalación y uso
 
 1. Subir `menu-bares.php` a la carpeta `/wp-content/plugins/`.
 2. Activar el plugin desde el panel de WordPress.
-3. Crear una página con el shortcode `[menu_bar]` o `[form_menu_cliente]` según corresponda.
-4. Ingresar usando el slug o usuario del cliente.
+3. Crear una página y colocar el shortcode `[menu_bar]` o `[form_menu_cliente]`.
+4. Asegurarse de tener un cliente activo con slug público cargado en la tabla `aa_clientes_autorizados`.
+5. Si se usa el CRUD, iniciar el servidor con Node.js:
+   ```bash
+   node servidor.js
+🌐 Requisitos
+WordPress instalado
 
-## 🛡️ Seguridad
+MySQL con las tablas:
 
-- El menú público se carga usando el `slug` de la URL, sin requerir login.
-- El formulario de edición del menú requiere validación mediante login del cliente.
+aa_clientes_autorizados
 
----
+aa_menu_productos
 
-Desarrollado por [albertohilal](https://github.com/albertohilal)
+aa_menu_categorias
 
+Servidor Node.js para la interfaz CRUD
 
+🛡️ Seguridad
+El menú público no requiere login y se basa en el slug de la URL.
+
+El formulario de edición de productos está protegido por token.
+
+Las credenciales del servidor deben mantenerse en .env, fuera del repositorio.
+
+Desarrollado por Desarrollo y Diseño
+Alberto Hilal
