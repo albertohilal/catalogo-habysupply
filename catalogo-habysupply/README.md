@@ -82,7 +82,13 @@ npm install
 
 3. **Configurar variables de entorno**
 
-Editar el archivo `.env` con tus credenciales:
+⚠️ **IMPORTANTE**: Copiar `.env.example` a `.env` y configurar tus credenciales:
+
+```bash
+cp .env.example .env
+```
+
+Editar el archivo `.env` con tus credenciales reales:
 
 ```env
 # OpenAI Configuration
@@ -101,6 +107,8 @@ OUTPUT_PAGES_DIR=./output/pages
 OUTPUT_BLOCKS_DIR=./output/blocks
 OUTPUT_PRODUCTOS_DIR=./output/productos
 ```
+
+🔒 **NUNCA** subas el archivo `.env` al repositorio. Ya está incluido en `.gitignore`.
 
 4. **Crear base de datos MySQL**
 ```sql
